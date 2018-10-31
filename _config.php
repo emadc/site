@@ -18,7 +18,7 @@ class MyAutoload
 
         define('CONTROLLERS', ROOT.'controllers'.DIRECTORY_SEPARATOR);
         define('VIEWS', ROOT.'views'.DIRECTORY_SEPARATOR);
-        define('MODEL', ROOT.'model'.DIRECTORY_SEPARATOR);
+        define('MODELS', ROOT.'models'.DIRECTORY_SEPARATOR);
         define('CLASSES', ROOT.'classes'.DIRECTORY_SEPARATOR);
         define('OBJECTS', ROOT.'objects'.DIRECTORY_SEPARATOR);
         define('UPOLOADS', ROOT.'assets'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR);
@@ -29,9 +29,9 @@ class MyAutoload
 
     public static function autoload($class)
     {
-        if(file_exists(MODEL.$class.'.php'))
+        if(file_exists(MODELS.$class.'.php'))
         {
-            include_once (MODEL.$class.'.php');
+            include_once (MODELS.$class.'.php');
         } 
         else if (file_exists(CLASSES.$class.'.php'))
         {
