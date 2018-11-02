@@ -17,7 +17,7 @@ class Routeur
     		""					=> ["controller" => 'Home',  "method" => 'showHome',		"area" => 'PUBLIC',	"role" => 'USER'],
     		"404"     			=> ["controller" => 'Home',  "method" => 'notFound',		"area" => 'PUBLIC',	"role" => 'USER'],
             "page"				=> ["controller" => 'Page',  "method" => 'showPage',		"area" => 'PUBLIC',	"role" => 'USER'],
-    		"admin"		    	=> ["controller" => 'User',  "method" => 'showAdmin',		"area" => 'PRIVATE',"role" => 'ADMIN'],
+    		"protect"		    	=> ["controller" => 'User',  "method" => 'showAdmin',		"area" => 'PRIVATE',"role" => 'ADMIN'],
     		"login"		    	=> ["controller" => 'User',  "method" => 'login',			"area" => 'PUBLIC',	"role" => 'USER'],
     		"auth"		    	=> ["controller" => 'User',  "method" => 'checkUser',		"area" => 'PUBLIC',	"role" => 'USER'],
     		"logout"			=> ["controller" => 'User',  "method" => 'logout',			"area" => 'PUBLIC',	"role" => 'USER'],
