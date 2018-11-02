@@ -10,7 +10,7 @@ class User
      * Render of login page
      */
     public function login() {
-        $myView = new View ( 'login', 'admin/' );
+        $myView = new View ( 'login', 'protected/' );
         $myView->render ( array (
             'role' => null
         ) );
@@ -22,7 +22,7 @@ class User
     public function logout() {
         session_unset ();
         session_destroy ();
-        $myView = new View ( 'login', 'admin/' );
+        $myView = new View ( 'login', 'protected/' );
         $myView->render ( array (
             'role' => null
         ) );
@@ -42,7 +42,7 @@ class User
         if ($user = $manager->getUser ( $this->test_input( $values ['login'] ), $this->test_input( $values ['password'] ) )) {
             $role = $user ['role'];
             $username = $user ['username'];
-            $template = "admin";
+            $template = "protected_area";
             $_SESSION ['role'] = $role;
             $_SESSION ['username'] = $username;
             $this->showAdmin ( $params );
@@ -58,7 +58,7 @@ class User
      * @param mixed $params
      */
     public function showAdmin($params) {
-        $myView = new View ( 'admin', 'admin/' );
+        $myView = new View ( 'protected_area', 'protected/' );
         $myView->render ( array (
             'role' => $_SESSION ['role'],
         ) );

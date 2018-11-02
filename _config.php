@@ -2,6 +2,7 @@
 /*** configuration *****/
 ini_set('display_errors','on');
 error_reporting(E_ALL);
+
 session_start();
 
 class MyAutoload
@@ -12,6 +13,14 @@ class MyAutoload
         
         $root = $_SERVER['DOCUMENT_ROOT'];
         $host = $_SERVER['HTTP_HOST'];
+        $dir = basename(__DIR__);
+
+        $length = strlen($dir.DIRECTORY_SEPARATOR);
+        if (substr($root, -$length) !== $dir){
+            $root = $root.$dir;
+            $host = $host.DIRECTORY_SEPARATOR.$dir;
+        }
+
 		//echo "<pre>"; var_dump($_SERVER); exit;
         define('HOST', $_SERVER['REQUEST_SCHEME'].'://'.$host.DIRECTORY_SEPARATOR);
         define('ROOT', $root.DIRECTORY_SEPARATOR);

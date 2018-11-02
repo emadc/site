@@ -5,6 +5,6 @@
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <title>Open Design School - administration</title>
-	  <link href="<?php echo ASSETS;?>css/admin.css" rel="stylesheet">
+	  <link href="<?php echo ASSETS;?>css/protected.css" rel="stylesheet">
 	</head>	
 	<body>
