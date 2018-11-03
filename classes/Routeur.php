@@ -25,11 +25,11 @@ class Routeur
         $this->username = $this->getUsername();
         $this->role     = $this->getRole();
         
-        if(isset($_SESSION['routes'])){ 
+        if(!isset($_SESSION['routes'])){ 
         	$this->routes= $_SESSION['routes'];
         }else{
         	$manageer = new LayoutManager();
-        	$this->routes = $manageer->getRoutes();
+        	$this->routes = $manageer->getRoutes($this->role);
         }
     }
 
@@ -115,7 +115,7 @@ class Routeur
             		$currentController->$method($params);
             	}
             	else {
-            		$controller = $this->routes[$route]['controller'];
+            		$controller = new User();
             		$method     = "login";
             		
             		$currentController = new $controller();
