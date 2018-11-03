@@ -21,7 +21,7 @@ class LayoutManager
         $menu = new ArrayObject();
         
         /*** accès au model ***/
-        $query = "SELECT * FROM sections WHERE menu = 0";
+        $query = "SELECT * FROM routes WHERE menu = 0";
 
         $req = $bdd->prepare($query);
         $req->execute();
@@ -33,7 +33,7 @@ class LayoutManager
 			if($row['item_link']!=null)
 			     $menuItem->setItemLink($row['item_link']);
 			else
-			    $menuItem->setItemLink(HOST."page/id/".$row['item_alias']);
+			    $menuItem->setItemLink(HOST.$row['route']);
 			$menuItem->setParent($row['parent']);
 
             $menu[] = $menuItem; 
@@ -44,28 +44,72 @@ class LayoutManager
     }
 
     /**
+     * Returns an array of routes
+     * @return ArrayObject routes
+     */
+    public function getRoutes()
+    {
+    	$bdd = $this->bdd;
+    	$routes = new ArrayObject();
+    	
+    	/*** accès au model ***/
+    	$query = "SELECT * FROM routes WHERE menu = 0";
+    	
+    	$req = $bdd->prepare($query);
+    	$req->execute();
+    	
+    	/**
+    	 * Array of the available routeses, role and area to manage the accesses
+    	 * @var array
+    	 */
+    	$routes = [
+    			""					=> ["controller" => 'Home',  "method" => 'showHome',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"404"     			=> ["controller" => 'Home',  "method" => 'notFound',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"page"				=> ["controller" => 'Page',  "method" => 'showPage',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"protect"	    	=> ["controller" => 'User',  "method" => 'showAdmin',	"param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    			"login"		    	=> ["controller" => 'User',  "method" => 'login',		"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"auth"		    	=> ["controller" => 'User',  "method" => 'checkUser',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"logout"			=> ["controller" => 'User',  "method" => 'logout',		"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    	];
+    	
+    	
+    	while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+    		$routes[] = $row['route'];
+    		$routes[$row['route']]["controller"]	 = $row['controller'];
+    		$routes[$row['route']]["method"]		 = $row['method'];
+    		$routes[$row['route']]["param_type"]	 = $row['param_type'];
+    		$routes[$row['route']]["area"]			 = $row['area'];
+    		$routes[$row['route']]["role"]			 = $row['role'];
+    	};
+    	
+    	$_SESSION['routes'] = $routes;
+    	
+    	return $routes;
+    }
+    
+    /**
      * Returns a Page objects
-     * @param mixed $item_alias
+     * @param mixed $route
      * @return PageObj
      */
-    public function getPage($item_alias)
+    public function getPage($route)
     {
     	$bdd = $this->bdd;
     	$page = new PageObj();
     	
     	$query = "SELECT *
-					FROM sections
-					LEFT JOIN pages ON (sections.id=pages.id_section)
-					WHERE item_alias=:item_alias";
+					FROM routes
+					LEFT JOIN pages ON (routes.id=pages.id_routes)
+					WHERE route=:route";
     	$req = $bdd->prepare($query);
-    	$req->bindParam(':item_alias', $item_alias);
+    	$req->bindParam(':route', $route);
     	$req->execute();
     	
     	$results = $req->fetchAll(PDO::FETCH_ASSOC);
     	
     	if (!empty($results)) {
     		$page->setId($results[0]['id']);
-    		$page->setIdSection($results[0]['id_section']);
+    		$page->setIdSection($results[0]['id_routes']);
     		$page->setTitle($results[0]['title']);
     		
     		$text = $results[0]['text'];
@@ -75,8 +119,10 @@ class LayoutManager
     		$page->setImage($results[0]['image']);
     		$page->setLink($results[0]['link']);
     		$page->setDateModif($results[0]['date_modif']);
-    		$page->setItemAlias($results[0]['item_alias']);
+    		$page->setItemAlias($results[0]['route']);
     	}
+    	
+
     	
     	return $page;
     }

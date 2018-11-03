@@ -17,8 +17,8 @@ class Page {
 		$myView = new View ('page');
 		$myView->render ( array (
 				'menu' => $manager->getMenu (),
-				'bottom' => $manager->getPage ( 'bottom' ),
-				'page' => $manager->getPage ( $params ['id'] )
+				'page' => $manager->getPage ( $params ['route'] ),
+				'bottom' => $manager->getPage ( 'bottom' )
 		) );
 	}
 	

@@ -13,15 +13,7 @@ class Routeur
      * Array of the available routeses, role and area to manage the accesses
      * @var array
      */
-    private $routes = [
-    		""					=> ["controller" => 'Home',  "method" => 'showHome',		"area" => 'PUBLIC',	"role" => 'USER'],
-    		"404"     			=> ["controller" => 'Home',  "method" => 'notFound',		"area" => 'PUBLIC',	"role" => 'USER'],
-            "page"				=> ["controller" => 'Page',  "method" => 'showPage',		"area" => 'PUBLIC',	"role" => 'USER'],
-    		"protect"	    	=> ["controller" => 'User',  "method" => 'showAdmin',		"area" => 'PRIVATE',"role" => 'ADMIN'],
-    		"login"		    	=> ["controller" => 'User',  "method" => 'login',			"area" => 'PUBLIC',	"role" => 'USER'],
-    		"auth"		    	=> ["controller" => 'User',  "method" => 'checkUser',		"area" => 'PUBLIC',	"role" => 'USER'],
-    		"logout"			=> ["controller" => 'User',  "method" => 'logout',			"area" => 'PUBLIC',	"role" => 'USER'],
-    ];
+    private $routes = [];
 
     private $username;
     private $role;
@@ -32,6 +24,13 @@ class Routeur
         // création de la session utilisateur
         $this->username = $this->getUsername();
         $this->role     = $this->getRole();
+        
+        if(isset($_SESSION['routes'])){ 
+        	$this->routes= $_SESSION['routes'];
+        }else{
+        	$manageer = new LayoutManager();
+        	$this->routes = $manageer->getRoutes();
+        }
     }
 
     /**
@@ -46,20 +45,28 @@ class Routeur
 
     /**
      * Parsing of the parameters
-     * @return mixed[]
+     * @param string $paramType
+     * @return array
      */
-    public function getParams()
+    public function getParams($paramType = 'get')
     {
 
         $params = array();
 
-        $elements = explode('/', $this->request);
-        unset($elements[0]);
-
-        for($i = 1; $i<count($elements); $i++)
-        {
-            $params[$elements[$i]] = $elements[$i+1];
-            $i++;
+        if ($paramType === 'slash') {
+        	$elements = explode('/', $this->request);
+        	unset($elements[0]);
+        	
+        	for($i = 1; $i<count($elements); $i++)
+        	{
+        		$params[$elements[$i]] = $elements[$i+1];
+        		$i++;
+        	}
+        }elseif ($_GET){
+        	foreach($_GET as $key => $val)
+        	{
+        		$params[$key] = $val;
+        	}
         }
 
         if($_POST)
@@ -81,9 +88,14 @@ class Routeur
     {
         
         $route  = $this->getRoute();
-        $params = $this->getParams();
+       
         if(key_exists($route, $this->routes))
         {
+//         	echo "<pre>";
+//         	var_dump($this->routes);
+        	$params = $this->getParams($this->routes[$route]['param_type']);
+        	$params['route'] = $route;
+        	
         	// vérification des droits utilisateur
         	if ($this->routes[$route]['area'] == "PUBLIC") 
         	{

@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL,
-  `id_section` int(11) NOT NULL,
+  `id_routes` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text,
   `image` varchar(255) DEFAULT NULL,
@@ -33,14 +33,19 @@ CREATE TABLE `pages` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sections`
+-- Structure de la table `routes`
 --
 
-CREATE TABLE `sections` (
+CREATE TABLE `routes` (
   `id` int(11) NOT NULL,
+  `route` varchar(255) DEFAULT NULL,  
   `item_text` varchar(255) NOT NULL,
-  `item_alias` varchar(255) DEFAULT NULL,
   `item_link` varchar(255) DEFAULT NULL,
+  `controller` varchar(255) DEFAULT NULL,
+  `method` varchar(255) DEFAULT NULL,
+  `param_type` varchar(255) DEFAULT NULL,
+  `area` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
   `parent` int(11) DEFAULT NULL,
   `menu` tinyint(1) DEFAULT '0',
   `visible` tinyint(1) DEFAULT '1',
@@ -86,9 +91,9 @@ ALTER TABLE `pages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `sections`
+-- Index pour la table `routes`
 --
-ALTER TABLE `sections`
+ALTER TABLE `routes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -113,9 +118,9 @@ ALTER TABLE `user`
 ALTER TABLE `pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `sections`
+-- AUTO_INCREMENT pour la table `routes`
 --
-ALTER TABLE `sections`
+ALTER TABLE `routes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `services`
