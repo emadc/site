@@ -25,7 +25,7 @@ class Routeur
         $this->username = $this->getUsername();
         $this->role     = $this->getRole();
         
-        if(!isset($_SESSION['routes'])){ 
+        if(isset($_SESSION['routes'])){ 
         	$this->routes= $_SESSION['routes'];
         }else{
         	$manageer = new LayoutManager();
