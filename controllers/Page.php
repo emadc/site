@@ -22,4 +22,15 @@ class Page {
 		) );
 	}
 	
+	/**
+	 * Render of protected area default page
+	 *
+	 * @param mixed $params
+	 */
+	public static function showProtected($params) {
+	    $myView = new View ( 'protected_area', 'protected/' );
+	    $myView->render ( array (
+	        'role' => $_SESSION ['role'],
+	    ) );
+	}
 }

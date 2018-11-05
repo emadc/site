@@ -15,16 +15,21 @@ class LayoutManager
      * Returns an array of MenuItem objects
      * @return ArrayObject MenuItem
      */
-    public function getMenu()
+    public function getMenu($menuType = 0)
     {
         $bdd = $this->bdd;
         $menu = new ArrayObject();
         
         /*** accès au model ***/
-        $query = "SELECT * FROM routes WHERE menu = 0";
-
+        $query = "SELECT * FROM routes 
+                    WHERE 1
+                    AND visible = 1 
+                    AND menu = :menu 
+                    ";
         $req = $bdd->prepare($query);
+        $req->bindParam(':menu', $menuType);
         $req->execute();
+        
         while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
 
 			$menuItem = new MenuItem();       	
@@ -63,13 +68,13 @@ class LayoutManager
     	 * @var array
     	 */
     	$routes = [
-    			""					=> ["controller" => 'Home',  "method" => 'showHome',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"404"     			=> ["controller" => 'Home',  "method" => 'notFound',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"page"				=> ["controller" => 'Page',  "method" => 'showPage',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"protect"	    	=> ["controller" => 'User',  "method" => 'showAdmin',	"param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
-    			"login"		    	=> ["controller" => 'User',  "method" => 'login',		"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"auth"		    	=> ["controller" => 'User',  "method" => 'checkUser',	"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"logout"			=> ["controller" => 'User',  "method" => 'logout',		"param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			""					=> ["controller" => 'Home',  "method" => 'showHome',      "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"404"     			=> ["controller" => 'Home',  "method" => 'notFound',      "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"page"				=> ["controller" => 'Page',  "method" => 'showPage',	  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"protect"	    	=> ["controller" => 'Page',  "method" => 'showProtected', "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    			"login"		    	=> ["controller" => 'User',  "method" => 'login',		  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"auth"		    	=> ["controller" => 'User',  "method" => 'checkUser',	  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"logout"			=> ["controller" => 'User',  "method" => 'logout',		  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
     	];
     	
     	

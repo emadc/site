@@ -73,7 +73,7 @@ CREATE TABLE `services` (
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,

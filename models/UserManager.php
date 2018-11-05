@@ -23,7 +23,7 @@ class UserManager
         $menu = new ArrayObject();
         
         /*** accès au model ***/
-        $query = "SELECT * FROM user WHERE username = :login and password = :password";
+        $query = "SELECT * FROM user WHERE login = :login and password = :password";
 
         $req = $bdd->prepare($query);
         $req->bindValue("login", $login);

@@ -10,7 +10,7 @@ class User
      * Render of login page
      */
     public function login() {
-        $myView = new View ( 'login', 'protected/' );
+        $myView = new View ( 'login' );
         $myView->render ( array (
             'role' => null
         ) );
@@ -22,7 +22,7 @@ class User
     public function logout() {
         session_unset ();
         session_destroy ();
-        $myView = new View ( 'login', 'protected/' );
+        $myView = new View ( 'login' );
         $myView->render ( array (
             'role' => null
         ) );
@@ -41,27 +41,14 @@ class User
         
         if ($user = $manager->getUser ( $this->test_input( $values ['login'] ), $this->test_input( $values ['password'] ) )) {
             $role = $user ['role'];
-            $username = $user ['username'];
-            $template = "protected_area";
+            $username = $user ['user_name'];
             $_SESSION ['role'] = $role;
             $_SESSION ['username'] = $username;
-            $this->showAdmin ( $params );
+            Page::showProtected ( $params );
         } else {
             $myView = new View ();
             $myView->redirect ( 'login' );
         }
-    }
-    
-    /**
-     * Render of administration default page
-     *
-     * @param mixed $params
-     */
-    public function showAdmin($params) {
-        $myView = new View ( 'protected_area', 'protected/' );
-        $myView->render ( array (
-            'role' => $_SESSION ['role'],
-        ) );
     }
     
     /**

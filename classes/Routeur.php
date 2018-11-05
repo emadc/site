@@ -29,7 +29,7 @@ class Routeur
         	$this->routes= $_SESSION['routes'];
         }else{
         	$manageer = new LayoutManager();
-        	$this->routes = $manageer->getRoutes($this->role);
+        	$this->routes = $manageer->getRoutes();
         }
     }
 
