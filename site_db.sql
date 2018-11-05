@@ -132,3 +132,21 @@ ALTER TABLE `services`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+--
+-- Contenu de la table `pages`
+--
+
+INSERT INTO `pages` (`id`, `id_routes`, `title`, `text`, `image`, `link`, `date_modif`) VALUES
+(1, 2, 'welcame', 'welcame welcame welcame welcame welcame welcame welcame welcame ', 'welcame.png', 'welcame_link', '2018-11-05 09:03:17'),
+(2, 3, 'bottom', 'bottom bottom bottom bottom bottom bottom bottom bottom ', 'bottom.jpg', 'bottom_link', '2018-11-05 09:05:08');
+
+--
+-- Contenu de la table `routes`
+--
+
+INSERT INTO `routes` (`id`, `route`, `item_text`, `item_link`, `controller`, `method`, `param_type`, `area`, `role`, `parent`, `menu`, `visible`, `editable`) VALUES
+(2, 'welcame', 'welcame', NULL, 'Page', 'showPage', 'get', NULL, NULL, NULL, 0, 0, 1),
+(3, 'bottom', 'bottom', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 1),
+(4, 'protect', 'protect', NULL, 'Page', 'showProtected', 'get', 'PRIVATE', 'ADMIN', NULL, 0, 1, 1),
+(5, NULL, 'Home', 'index.php', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 1);
