@@ -58,7 +58,10 @@ class LayoutManager
     	$routes = new ArrayObject();
     	
     	/*** accès au model ***/
-    	$query = "SELECT * FROM routes WHERE menu = 0";
+    	$query = "SELECT * FROM routes 
+                    WHERE 1
+                    AND menu = 0
+                    AND route IS NOT NULL";
     	
     	$req = $bdd->prepare($query);
     	$req->execute();
