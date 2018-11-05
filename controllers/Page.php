@@ -14,8 +14,8 @@ class Page {
 	public function showPage($params) {
 		$manager = new LayoutManager ();
 		
-		$myView = new View ('page');
-		$myView->render ( array (
+		$view = new View ('page');
+		$view->render ( array (
 				'menu' => $manager->getMenu (),
 				'page' => $manager->getPage ( $params ['route'] ),
 				'bottom' => $manager->getPage ( 'bottom' )
@@ -28,8 +28,8 @@ class Page {
 	 * @param mixed $params
 	 */
 	public static function showProtected($params) {
-	    $myView = new View ( 'protected_area', 'protected/' );
-	    $myView->render ( array (
+	    $view = new View ( 'protected_area', 'protected/' );
+	    $view->render ( array (
 	        'role' => $_SESSION ['role'],
 	    ) );
 	}

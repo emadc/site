@@ -26,8 +26,8 @@ class Home
     {
         $manager = new ServicesManager();
         
-        $myView = new View('home');
-        $myView->render(array(
+        $view = new View('home');
+        $view->render(array(
             'menu' => $this->manager->getMenu(),
             'welcame' => $this->manager->getPage('welcame'),
             'bottom' => $this->manager->getPage('bottom'),
@@ -40,8 +40,8 @@ class Home
      */
     public function notFound()
     {
-        $myView = new View('404');
-        $myView->render(array(
+        $view = new View('404');
+        $view->render(array(
             'menu' => $this->manager->getMenu(),
             'bottom' => $this->manager->getPage('bottom')
         ));

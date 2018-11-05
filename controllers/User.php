@@ -12,8 +12,8 @@ class User
     public function login() {
         $manager = new LayoutManager ();
         
-        $myView = new View ('login');
-        $myView->render ( array (
+        $view = new View ('login');
+        $view->render ( array (
             'menu' => $manager->getMenu (),
             'bottom' => $manager->getPage ( 'bottom' ),
             'role' => null
@@ -47,8 +47,8 @@ class User
             $_SESSION ['username'] = $username;
             Page::showProtected ( $params );
         } else {
-            $myView = new View ();
-            $myView->redirect ( 'login' );
+            $view = new View ();
+            $view->redirect ( 'login' );
         }
     }
     
