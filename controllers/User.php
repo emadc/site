@@ -10,8 +10,12 @@ class User
      * Render of login page
      */
     public function login() {
-        $myView = new View ( 'login' );
+        $manager = new LayoutManager ();
+        
+        $myView = new View ('login');
         $myView->render ( array (
+            'menu' => $manager->getMenu (),
+            'bottom' => $manager->getPage ( 'bottom' ),
             'role' => null
         ) );
     }
@@ -22,10 +26,7 @@ class User
     public function logout() {
         session_unset ();
         session_destroy ();
-        $myView = new View ( 'login' );
-        $myView->render ( array (
-            'role' => null
-        ) );
+        $this->login();
     }
     
     /**
