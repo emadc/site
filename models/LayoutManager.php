@@ -71,13 +71,18 @@ class LayoutManager
     	 * @var array
     	 */
     	$routes = [
-    			""					=> ["controller" => 'Home',  "method" => 'showHome',      "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"404"     			=> ["controller" => 'Home',  "method" => 'notFound',      "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"page"				=> ["controller" => 'Page',  "method" => 'showPage',	  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"protect"	    	=> ["controller" => 'Page',  "method" => 'showProtected', "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
-    			"login"		    	=> ["controller" => 'User',  "method" => 'login',		  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"auth"		    	=> ["controller" => 'User',  "method" => 'checkUser',	  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
-    			"logout"			=> ["controller" => 'User',  "method" => 'logout',		  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			""					=> ["controller" => 'Home',       "method" => 'showHome',      "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"404"     			=> ["controller" => 'Home',       "method" => 'notFound',      "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"page"				=> ["controller" => 'Page',       "method" => 'showPage',	   "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"protect"	    	=> ["controller" => 'Page',       "method" => 'showProtected', "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    			"login"		    	=> ["controller" => 'User',       "method" => 'login',		   "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"auth"		    	=> ["controller" => 'User',       "method" => 'checkUser',	   "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+    			"logout"			=> ["controller" => 'User',       "method" => 'logout',		   "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
+        	    "service_upload"	=> ["controller" => 'Service',    "method" => 'serviceUpload', "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    	        "get_service"		=> ["controller" => 'Service',    "method" => 'getService',    "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    	        "service_delete"	=> ["controller" => 'Service', 	  "method" => 'deleteService', "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    	        "service_page"		=> ["controller" => 'Service', 	  "method" => 'setPage',	   "param_type" => 'get',	"area" => 'PRIVATE',"role" => 'ADMIN'],
+    	        "services"			=> ["controller" => 'Service', 	  "method" => 'showServices',  "param_type" => 'get',	"area" => 'PUBLIC',	"role" => 'USER'],
     	];
     	
     	
