@@ -8,7 +8,7 @@ class UserManager
 
     public function __construct()
     {
-        $config = parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . '../db_config.php', true);
+        $config = parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . '../site_config.php', true);
         $this->bdd = new PDO("mysql:host=".$config['sql']['ods']['host']."; dbname=".$config['sql']['ods']['base']."; charset=utf8", $config['sql']['ods']['user'], $config['sql']['ods']['pass']);
     }
 
