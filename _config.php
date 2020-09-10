@@ -3,22 +3,28 @@
 ini_set('display_errors','on');
 error_reporting(E_ALL);
 
+session_name("SESSION_ID");
+ini_set('session.cookie_lifetime', 60*30);
+
 session_start();
 
 class MyAutoload
 {
     public static function start()
     {
-        spl_autoload_register(array(__CLASS__, 'autoload'));
+        spl_autoload_register(array(
+            __CLASS__,
+            'autoload'
+        ));
         
-        $root = $_SERVER['DOCUMENT_ROOT'];
+        $root = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
         $host = $_SERVER['HTTP_HOST'];
         $dir = basename(__DIR__);
-
-        $length = strlen($dir.DIRECTORY_SEPARATOR);
-        if (substr($root, -$length) !== $dir){
-            $root = $root.$dir;
-            $host = $host.DIRECTORY_SEPARATOR.$dir;
+        
+        $length = strlen($dir);
+        if (substr($_SERVER['DOCUMENT_ROOT'], - $length) !== $dir) {
+            $root = $root . $dir . DIRECTORY_SEPARATOR;
+            $host = $host . DIRECTORY_SEPARATOR . $dir;
         }
 
 		//echo "<pre>"; var_dump($_SERVER); exit;
